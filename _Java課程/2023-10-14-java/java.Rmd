@@ -207,6 +207,8 @@ public class Java_in_9_13 {
 
 分為float型別與double型別
 
+注意：double和float建議在後面加上d和f
+
 得用兩種方式代表
 
 -   帶小數點：
@@ -267,7 +269,7 @@ public class Java_in_9_13 {
    
  String greeting ="Hello";
  
- System.out.println("The lenth of greeting: %d",greeting.lenth());
+ System.out.printf("The lenth of greeting: %d",greeting.length());
  
   }
   
@@ -292,8 +294,9 @@ public class Java_in_9_13 {
 ```
 
 #### indexOf()
+某個字串在另外一個字串的第幾個位置
 
-```{java}
+```{Java}
 //
 public class Java_in_9_13 {
  public static void main(String[] argv) {
@@ -301,7 +304,7 @@ public class Java_in_9_13 {
  String txt ="Hello is word";
  String word = "Hello";
  
- System.out.println(txt.indexOf(word);
+ System.out.println(txt.indexOf(word));
  
   }
   
@@ -348,6 +351,27 @@ public class Java_in_9_13 {
   
 }
 ```
+#### substring
+在一個Sting當中，透過給定位置，賦予新的String該位置的內容
+
+很抽象吧！
+
+```{Java}
+
+public class Java_in_9_13 {
+ public static void main(String[] argv) {
+  
+    String A = "lsy";
+		String b=A.substring(0,3);
+		//代表從第0個(l)印到第3-1個(y)
+		
+		System.out.printf("%s",b);
+ 
+ }
+  
+}
+```
+
 
 ### 跳脫序列補充
 

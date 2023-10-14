@@ -1549,6 +1549,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><a href="#touppercase-and-tolowercase" id="toc-touppercase-and-tolowercase">toUpperCase() and toLowerCase():</a></li>
 <li><a href="#indexof" id="toc-indexof">indexOf()</a></li>
 <li><a href="#string-equals" id="toc-string-equals">String equals()</a></li>
+<li><a href="#substring" id="toc-substring">substring</a></li>
 </ul></li>
 <li><a href="#跳脫序列補充" id="toc-跳脫序列補充">跳脫序列補充</a></li>
 </ul></li>
@@ -1670,6 +1671,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <h3 id="浮點數型別floating-point-data-types">浮點數型別(Floating Point Data Types)</h3>
 <p>分為float型別與double型別</p>
+<p>注意：double和float建議在後面加上d和f</p>
 <p>得用兩種方式代表</p>
 <ul>
 <li><p>帶小數點：</p></li>
@@ -1721,7 +1723,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>   </span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a> <span class="bu">String</span> greeting <span class="op">=</span><span class="st">&quot;Hello&quot;</span><span class="op">;</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a> <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;The lenth of greeting: %d&quot;</span><span class="op">,</span>greeting<span class="op">.</span><span class="fu">lenth</span><span class="op">());</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a> <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">printf</span><span class="op">(</span><span class="st">&quot;The lenth of greeting: </span><span class="sc">%d</span><span class="st">&quot;</span><span class="op">,</span>greeting<span class="op">.</span><span class="fu">length</span><span class="op">());</span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a> </span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  </span>
@@ -1743,6 +1745,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
 <h4 id="indexof">indexOf()</h4>
+<p>某個字串在另外一個字串的第幾個位置</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb8"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">//</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Java_in_9_13 <span class="op">{</span></span>
@@ -1751,7 +1754,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a> <span class="bu">String</span> txt <span class="op">=</span><span class="st">&quot;Hello is word&quot;</span><span class="op">;</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a> <span class="bu">String</span> word <span class="op">=</span> <span class="st">&quot;Hello&quot;</span><span class="op">;</span></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a> <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>txt<span class="op">.</span><span class="fu">indexOf</span><span class="op">(</span>word<span class="op">);</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a> <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>txt<span class="op">.</span><span class="fu">indexOf</span><span class="op">(</span>word<span class="op">));</span></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a> </span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  </span>
@@ -1797,9 +1800,27 @@ Show code
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </details>
 </div>
+<h4 id="substring">substring</h4>
+<p>在一個Sting當中，透過給定位置，賦予新的String該位置的內容</p>
+<p>很抽象吧！</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb11"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Java_in_9_13 <span class="op">{</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a> <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">String</span> A <span class="op">=</span> <span class="st">&quot;lsy&quot;</span><span class="op">;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">String</span> b<span class="op">=</span>A<span class="op">.</span><span class="fu">substring</span><span class="op">(</span><span class="dv">0</span><span class="op">,</span><span class="dv">3</span><span class="op">);</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">//代表從第0個(l)印到第3-1個(y)</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">printf</span><span class="op">(</span><span class="st">&quot;</span><span class="sc">%s</span><span class="st">&quot;</span><span class="op">,</span>b<span class="op">);</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a> <span class="op">}</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
 <h3 id="跳脫序列補充">跳脫序列補充</h3>
 <p><img src="%E8%B7%B3%E8%84%AB%E5%BA%8F%E5%88%97.png" /></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
