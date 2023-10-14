@@ -1,0 +1,171 @@
+---
+title: "Java的運算"
+author: "董宸賓"
+date: "2023-08-19"
+description: |
+  
+output:
+  distill::distill_article: 
+   toc: true
+   toc_depth: 4
+   toc_float: true
+   self_contained: false
+   pandoc_args: "--lua-filter=color-text.lua"
+---
+
+```{r panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{cat, engine.opts = list(file = "color-text.lua")}
+Span = function(el)
+  color = el.attributes['color']
+  -- if no color attribute, return unchange
+  if color == nil then return el end
+  
+  -- transform to <span style="color: red;"></span>
+  if FORMAT:match 'html' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- use style attribute instead
+    el.attributes['style'] = 'color: ' .. color .. ';'
+    -- return full span element
+    return el
+  elseif FORMAT:match 'latex' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- encapsulate in latex code
+    table.insert(
+      el.content, 1,
+      pandoc.RawInline('latex', '\\textcolor{'..color..'}{')
+    )
+    table.insert(
+      el.content,
+      pandoc.RawInline('latex', '}')
+    )
+    -- returns only span content
+    return el.content
+  else
+    -- for other format return unchanged
+    return el
+  end
+end
+```
+
+## Java的Operater
+
+分為四種類型
+
+- Arithmetic Operators:基礎的數學運算
+![](Arithmetic.png)
+
+- Assignment Operators:即=，指派變數的值
+![](Assignment.png)
+
+- Logical Operators:包括and，or，not
+![](Logical.png)
+```{Java}
+//搭配boolean的運算
+
+public class Java_in_9_13 {
+ public static void main(String[] argv) {
+   
+   boolean a = true, b = false;
+   
+   System.out.println(a&b);
+   System.out.println(a&&b);
+   System.out.println(a|b);
+   System.out.println(a||b);
+ 
+ }
+  
+}
+```
+
+```{Java}
+//ShortCircuit短路式邏輯運算符
+
+public class Java_in_9_13 {
+ public static void main(String[] argv) {
+   
+   i=3, j=4;
+   System.out.println(true|((i+1)==j));
+   System.out.println(a&&b);
+   System.out.println(a|b);
+   System.out.println(a||b);
+ 
+ }
+  
+}
+```
+
+- Comparison Operators:比較兩個變數
+![](Comparison.png)
+值得注意的是，要盡量避免浮點數(double)的比較
+
+## Type Casting
+讓變數在基本型別中進行轉換，分為兩種
+
+- Widening Casting放大型別(automatically)
+
+byte -> short -> char -> int -> long -> float -> double
+
+- Narrowing Casting限縮型別
+
+byte <- short <- char <- int <- long <- float <- double
+
+```{java}
+
+public class Java_in_9_13 {
+ public static void main(String[] argv) {
+   
+   int i1 = 33;
+   int i4 = 12;
+   double i2 = i1 ;//放大型別不需特別宣告
+   int i3 = (int) i2 ;//縮小型別特別宣告
+   double i5 = (double)(i1+14)/12; //在計算的時候記得要特別宣告
+   
+   System.out.println(i1);
+   System.out.println(i2);
+   System.out.println(i3);
+   System.out.println(i5);
+ 
+ }
+  
+}
+```
+## Math methods
+
+- Math.min，max找最小，最大值
+
+- Math.sqrt()找平方根後的值
+
+- Math.abs()找絕對值
+
+- Math.random()找出在0~1之間的隨機值
+
+## 用scanner取得使用者輸入
+```{java}
+import java.util.Scanner;
+import java.util.Random;
+
+public class Lab2 {
+
+	public static void main(String[] args) {
+		
+	  int num1, num2;
+	  
+		Scanner sc = new Scanner(System.in);//打開scanner
+		
+		num1 = sc.nextInt();//由輸入端輸入一個整數
+		num2 = sc.nextInt();//next()取字串，nextByte()取Byte值...
+		
+		System.out.print("gap = "+ num1-num2);
+		
+		sc.close();
+		
+	}
+
+}
+```
+

@@ -15,5 +15,22 @@
     "preview": {},
     "last_modified": "2023-10-14T14:42:56+08:00",
     "input_file": {}
+  },
+  {
+    "path": "Java課程/2023-10-14-javaoperater/",
+    "title": "Java的運算",
+    "description": {},
+    "author": [
+      {
+        "name": "董宸賓",
+        "url": {}
+      }
+    ],
+    "date": "2023-08-19",
+    "categories": [],
+    "contents": "\n\nContents\nJava的Operater\nType Casting\nMath methods\n用scanner取得使用者輸入\n\n\n\n\n\n\n\nJava的Operater\n分為四種類型\nArithmetic Operators:基礎的數學運算\n\nAssignment Operators:即=，指派變數的值\n\nLogical Operators:包括and，or，not\n\n\n\n\n//搭配boolean的運算\n\npublic class Java_in_9_13 {\n public static void main(String[] argv) {\n   \n   boolean a = true, b = false;\n   \n   System.out.println(a&b);\n   System.out.println(a&&b);\n   System.out.println(a|b);\n   System.out.println(a||b);\n \n }\n  \n}\n\n\n//ShortCircuit短路式邏輯運算符\n\npublic class Java_in_9_13 {\n public static void main(String[] argv) {\n   \n   i=3, j=4;\n   System.out.println(true|((i+1)==j));\n   System.out.println(a&&b);\n   System.out.println(a|b);\n   System.out.println(a||b);\n \n }\n  \n}\n\nComparison Operators:比較兩個變數\n\n值得注意的是，要盡量避免浮點數(double)的比較\nType Casting\n讓變數在基本型別中進行轉換，分為兩種\nWidening Casting放大型別(automatically)\nbyte -> short -> char -> int -> long -> float -> double\nNarrowing Casting限縮型別\nbyte <- short <- char <- int <- long <- float <- double\n\n\npublic class Java_in_9_13 {\n public static void main(String[] argv) {\n   \n   int i1 = 33;\n   int i4 = 12;\n   double i2 = i1 ;//放大型別不需特別宣告\n   int i3 = (int) i2 ;//縮小型別特別宣告\n   double i5 = (double)(i1+14)/12; //在計算的時候記得要特別宣告\n   \n   System.out.println(i1);\n   System.out.println(i2);\n   System.out.println(i3);\n   System.out.println(i5);\n \n }\n  \n}\n\nMath methods\nMath.min，max找最小，最大值\nMath.sqrt()找平方根後的值\nMath.abs()找絕對值\nMath.random()找出在0~1之間的隨機值\n用scanner取得使用者輸入\n\nimport java.util.Scanner;\nimport java.util.Random;\n\npublic class Lab2 {\n\n    public static void main(String[] args) {\n        \n      int num1, num2;\n      \n        Scanner sc = new Scanner(System.in);//打開scanner\n        \n        num1 = sc.nextInt();//由輸入端輸入一個整數\n        num2 = sc.nextInt();//next()取字串，nextByte()取Byte值...\n        \n        System.out.print(\"gap = \"+ num1-num2);\n        \n        sc.close();\n        \n    }\n\n}\n\n\n\n\n",
+    "preview": {},
+    "last_modified": "2023-10-14T15:42:31+08:00",
+    "input_file": "javaoperater.knit.md"
   }
 ]
