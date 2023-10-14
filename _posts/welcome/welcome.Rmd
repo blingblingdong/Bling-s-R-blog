@@ -3,6 +3,7 @@ title: "Welcome to Bling's R blog"
 description: |
   Welcome to our new blog, Bling's R blog. We hope you enjoy 
   reading what we have to say!
+preview: "921.png"
 author:
   - name: Nora Jones 
     url: https://example.com/norajones
@@ -22,5 +23,6 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
-
-
+```{r message=FALSE, warning=FALSE}
+knitr::include_graphics("921.png")
+```

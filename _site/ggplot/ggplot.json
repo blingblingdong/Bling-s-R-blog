@@ -1,0 +1,36 @@
+[
+  {
+    "path": "ggplot/2023-08-19-ggplot第一課：基礎篇/",
+    "title": "ggplot第一課：基礎篇",
+    "description": "這篇文章告訴大家如何製作圖表",
+    "author": [
+      {
+        "name": "董宸賓",
+        "url": {}
+      }
+    ],
+    "date": "2023-08-19",
+    "categories": [],
+    "contents": "\n\nContents\n先載入tidyverse\n再入一組數據\n讓我們先觀察這組數據\n建立一個基礎的圖表\n增加變相\n疊圖\n簡化疊圖\n\n\n\n\n先載入tidyverse\ninstall.packages(\"tidyverse\")\nlibrary(tidyverse)\n再入一組數據\n\n\n表格1 <- read_csv(\"https://docs.google.com/spreadsheets/d/e/2PACX-1vTpPg1erFUhXC6sKzUajLFeeBrdcPrugTyTWj8ly1tS4KS3h9yN31i4sq2NoGnHQ4_1M3rtbu1fo8XK/pub?gid=0&single=true&output=csv\")\nview(表格1)\n\n\n讓我們先觀察這組數據\n\n\ndatatable(表格1)\n\n\n\n建立一個基礎的圖表\n\n\n#data=你的數據\n#geom_point=圖表類型\n#設定兩軸aes(x=X,y=Y)\nggplot(data = 表格1) + \n  geom_point(mapping = aes(x = 年度, y = 案件數量))+\n  theme(text=element_text(family=\"黑體-繁 中黑\"))\n\n\n\n增加變相\n\n\nggplot(data = 表格1) + \n  geom_point(mapping = aes(x = 年度, y = 案件數量,color = 案件類型))+\n  theme(text=element_text(family=\"黑體-繁 中黑\"))\n\n\n\n疊圖\n\n\nggplot(data = 表格1) + \n  geom_point(mapping = aes(x = 年度, y = 案件數量,color = 案件類型))+\n  geom_line(mapping = aes(x = 年度, y = 案件數量,color = 案件類型))+\n  theme(text=element_text(family=\"黑體-繁 中黑\"))\n\n\n\n簡化疊圖\n\n\nggplot(data = 表格1,mapping = aes(x = 年度, y = 案件數量,color = 案件類型)) + \n  geom_point()+\n  geom_line()+\n  theme(text=element_text(family=\"黑體-繁 中黑\"))\n\n\n\n\n\nggplot(data = 表格1,mapping = aes(x = 年度, y = 案件數量,fill=案件類型,label= 案件數量)) + \n  geom_histogram(binwidth = 0.2, stat = \"identity\") +\n  scale_fill_manual( values = c(\"#004AAD\",\"grey50\"))+\n  facet_wrap(~案件類型, ncol = 1)+\n  theme(text=element_text(family=\"黑體-繁 中黑\"))\n\n\n\n\n\n\n",
+    "preview": {},
+    "last_modified": "2023-08-25T23:44:55+08:00",
+    "input_file": {}
+  },
+  {
+    "path": "ggplot/2023-08-19-ggplot第二課：美化篇/",
+    "title": "ggplot第二課：美化篇",
+    "description": "這篇文章告訴大家如何製作圖表",
+    "author": [
+      {
+        "name": "董宸賓",
+        "url": {}
+      }
+    ],
+    "date": "2023-08-19",
+    "categories": [],
+    "contents": "\n\n\nlibrary(shiny)\nsidebarPanel(sliderInput(inputId = \"bins\",\n                  label = \"Number of bins:\",\n                  min = 1,\n                  max = 50,\n                  value = 30))\n\n\n\n\nNumber of bins:\n\n\n\n\nmainPanel(plotOutput(outputId = \"distPlot\"))\n\n\n\n\n\nrenderPlot({\n    \n    x    <- airquality$Ozone\n    x    <- na.omit(x)\n    bins <- seq(min(x), max(x), length.out = input$bins + 1)\n    \n    hist(x, breaks = bins, col = \"#75AADB\", border = \"black\",\n         xlab = \"Ozone level\",\n         main = \"Histogram of Ozone level\")\n    \n  })\n\n\n\n\n\n\n",
+    "preview": {},
+    "last_modified": "2023-08-21T20:51:04+08:00",
+    "input_file": {}
+  }
+]
