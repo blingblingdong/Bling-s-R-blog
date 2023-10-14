@@ -14,3 +14,4 @@ use_git_config(user.name = "blingblingdong", user.email = "whoareyouman0.4@gmail
 
 
 create_post("Java_Operater",collection ="Java課程")
+usethis::use_github()

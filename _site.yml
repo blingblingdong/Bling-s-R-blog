@@ -3,6 +3,7 @@ title: "Bling's R blog"
 theme: "第二個主題.css"
 description: |
   Bling's R blog
+favicon: icon.png
 output_dir: "_site"
 navbar:
   right:
