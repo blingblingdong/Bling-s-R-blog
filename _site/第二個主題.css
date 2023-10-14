@@ -92,3 +92,9 @@ div{display: block: line-height: 2:}
 #TOC h3{
   color : #0F2E3D;
 }
+
+.distill-site-header .logo img {
+   max-height: 35px;
+   width: auto;
+   margin-top: 8px;
+}
