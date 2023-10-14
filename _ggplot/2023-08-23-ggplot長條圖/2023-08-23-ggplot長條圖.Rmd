@@ -1,0 +1,73 @@
+---
+title: "ggplot長條圖介紹"
+author: "董宸賓"
+date: "2023-08-23"
+theme: "第二個主題.css"
+description: |
+  這篇有任何有關ggplot-長條圖的小tip
+output:
+  distill::distill_article: 
+   toc: true
+   toc_depth: 1
+   toc_float: true
+---
+```{cat, engine.opts = list(file = "color-text.lua")}
+Span = function(el)
+  color = el.attributes['color']
+  -- if no color attribute, return unchange
+  if color == nil then return el end
+  
+  -- transform to <span style="color: red;"></span>
+  if FORMAT:match 'html' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- use style attribute instead
+    el.attributes['style'] = 'color: ' .. color .. ';'
+    -- return full span element
+    return el
+  elseif FORMAT:match 'latex' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- encapsulate in latex code
+    table.insert(
+      el.content, 1,
+      pandoc.RawInline('latex', '\\textcolor{'..color..'}{')
+    )
+    table.insert(
+      el.content,
+      pandoc.RawInline('latex', '}')
+    )
+    -- returns only span content
+    return el.content
+  else
+    -- for other format return unchanged
+    return el
+  end
+end
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(DT)
+```
+## 先載入tidyverse
+
+`install.packages("tidyverse")`
+
+`library(tidyverse)`
+
+## 再入一組數據
+
+```{r warning=FALSE}
+數據1 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTpPg1erFUhXC6sKzUajLFeeBrdcPrugTyTWj8ly1tS4KS3h9yN31i4sq2NoGnHQ4_1M3rtbu1fo8XK/pub?gid=0&single=true&output=csv")
+```
+
+## 讓我們先觀察這組數據
+
+```{r}
+datatable(數據1)
+```
+
+
+

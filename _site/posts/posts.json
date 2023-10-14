@@ -11,9 +11,26 @@
     ],
     "date": "2023-08-17",
     "categories": [],
-    "contents": "\n\n\n\n",
-    "preview": {},
-    "last_modified": "2023-08-17T20:36:16+08:00",
-    "input_file": "welcome.knit.md"
+    "contents": "\n\n\n\n\n\n\n",
+    "preview": "posts/welcome/921.png",
+    "last_modified": "2023-08-20T23:56:57+08:00",
+    "input_file": {}
+  },
+  {
+    "path": "posts/2023-08-18-如何使用Ｒ製作表格/",
+    "title": "繪製圖表器介紹",
+    "description": "這篇文章告訴大家如何製作圖表",
+    "author": [
+      {
+        "name": "董宸賓",
+        "url": {}
+      }
+    ],
+    "date": "2023-08-08",
+    "categories": [],
+    "contents": "\n\nContents\n如何使用這個程式\n這個程式的code\n這是一個示範性的csv table\n這是一個動態圖表\nTwo columns\n\n\n\n\n如何使用這個程式\n第一步：上傳你的csv檔，並檢查你的檔案\n第二步：選擇你的圖表樣式\n第三步：調整你要輸出的表格大小\n第四步：下載你的圖表\n這個程式的code\nhttps://bookdown.org/yihui/rmarkdown/compile.html\n這是一個示範性的csv table\n\n\n\n\n這是一個動態圖表\n\n\n1:10  # a sequence from 1 to 10\n\n [1]  1  2  3  4  5  6  7  8  9 10\n\n10:1  # in the reverse order\n\n [1] 10  9  8  7  6  5  4  3  2  1\n\nTwo columns\n\n\n\n\n1:10  # a sequence from 1 to 10\n\n [1]  1  2  3  4  5  6  7  8  9 10\n\n10:1  # in the reverse order\n\n [1] 10  9  8  7  6  5  4  3  2  1\n\n\n\n\n\nShow code\n\nlibrary(echarts4r)\nlibrary(tidyverse)\nlibrary(readr)\n表1 <- read_csv(\"表1.csv\")\n表3 <- 表1 %>% gather(同學A, 同學B, 同學C, key = 學生, value = 分數)\n\nplot1 <- 表3 %>% \n  group_by(學生) %>% \n  e_charts(x = 學期) %>% \n  e_line(分數, lineStyle = list(width = 4)) %>% \n  e_tooltip() %>% \n  e_animation(\"axis\")\n\nplot2<-plot1 %>% \n  e_grid(right = \"15%\") %>% \n  e_legend(orient = \"vertical\", right = \"15\", top = \"15%\", selector = list(list(type = \"inverse\", title = \"重置\"), list(type = \"all\", title = \"全選\")), width = 150)\nplot2\n\n\n\n\n\n\n\n\n",
+    "preview": "posts/2023-08-18-如何使用Ｒ製作表格/distill-preview.png",
+    "last_modified": "2023-09-04T00:59:03+08:00",
+    "input_file": {}
   }
 ]

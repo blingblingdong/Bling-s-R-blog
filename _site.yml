@@ -1,5 +1,6 @@
 name: "Bling's R blog"
 title: "Bling's R blog"
+theme: "第二個主題.css"
 description: |
   Bling's R blog
 output_dir: "_site"
@@ -9,4 +10,10 @@ navbar:
       href: index.html
     - text: "About"
       href: about.html
+    - text: "ggplot課程"
+      href: ggplot_lesson.html
+    - text: "tidyverse課程"
+      href: tidyverse.html
+    - text: "Java課程"
+      href: Java課程.html
 output: distill::distill_article

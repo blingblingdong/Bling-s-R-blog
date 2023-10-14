@@ -1,0 +1,342 @@
+---
+title: "tidyverse第一課:基礎資料變換與整理"
+author: "董宸賓"
+date: "2023-08-19"
+description: |
+  這篇文章告訴大家如何製作圖表
+output:
+  distill::distill_article: 
+   toc: true
+   toc_depth: 2
+   toc_float: true
+   self_contained: false
+   pandoc_args: "--lua-filter=color-text.lua"
+---
+
+```{r panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{cat, engine.opts = list(file = "color-text.lua")}
+Span = function(el)
+  color = el.attributes['color']
+  -- if no color attribute, return unchange
+  if color == nil then return el end
+  
+  -- transform to <span style="color: red;"></span>
+  if FORMAT:match 'html' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- use style attribute instead
+    el.attributes['style'] = 'color: ' .. color .. ';'
+    -- return full span element
+    return el
+  elseif FORMAT:match 'latex' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- encapsulate in latex code
+    table.insert(
+      el.content, 1,
+      pandoc.RawInline('latex', '\\textcolor{'..color..'}{')
+    )
+    table.insert(
+      el.content,
+      pandoc.RawInline('latex', '}')
+    )
+    -- returns only span content
+    return el.content
+  else
+    -- for other format return unchanged
+    return el
+  end
+end
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(DT)
+library(rmarkdown)
+library(htmltools)
+library(xaringanExtra)
+library(gt)
+```
+
+## 先載入tidyverse
+
+`install.packages("tidyverse")`
+
+`library(tidyverse)`
+
+## 寫入一組數據
+
+```{r}
+data1 <-read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTpPg1erFUhXC6sKzUajLFeeBrdcPrugTyTWj8ly1tS4KS3h9yN31i4sq2NoGnHQ4_1M3rtbu1fo8XK/pub?gid=0&single=true&output=csv")
+```
+
+## 讓我們先來觀察這組示範的data
+
+```{r}
+paged_table(data1)
+```
+
+每組資料欄下，都有三個英文字，他們代表著各欄資料的[類型]{style="color:blue;"}， 以下列出7種不同類型：
+
+-   int 代表整數
+
+-   dbl代表doubles (雙精度浮點數）或實數
+
+-   chr代表字元向量（character vectors）或字串
+
+-   dttm代表日期與時間
+
+-   lgl代表邏輯向量,只包含TRUE或FALSE
+
+-   fctr代表因子
+
+-   date代表日期
+
+## 使用filter過濾資料
+
+filter是使用比較運算子對資料欄做基本的運算
+
+公式：filter(要過濾的資料, 過濾資料欄的運算式)
+
+示範：找出"2015年到2019年中，屬於民事案件且超過30件"
+
+```{r}
+data2<- data1%>%
+  filter(案件類型=="民事",案件數量 > 30)
+```
+
+::: panelset
+::: panel
+## data2 {.panel-name}
+
+```{r warning=FALSE, echo=FALSE}
+datatable(data2)
+```
+:::
+
+::: panel
+## 圖表 {.panel-name}
+
+```{r, code_folding=TRUE}
+ggplot(data1,aes(年度,案件數量))+
+  geom_point(size=4)+
+  geom_point(size=4,color="red",data = data2)+
+  labs(title= "2015年到2019年中，民事案件超過30件的年份")+
+  theme_classic()+
+  theme(text=element_text(family="黑體-繁 中黑", size=15))
+```
+:::
+:::
+
+## 使用select選擇資料
+
+select是能讓妳挑選想要的數據，尤其是你的資料欄十分巨大
+
+公式：select(你的資料，欄資料名)
+
+示範：
+
+```{r}
+data3<- data1%>%
+ select(年度,案件類型,案件數量)
+```
+
+::: panelset
+::: panel
+## data3 {.panel-name}
+
+```{r warning=FALSE, echo=FALSE}
+datatable(data3)
+```
+:::
+
+::: panel
+## 包含...關鍵字選擇 {.panel-name}
+
+-   start_with("關鍵字")
+
+-   end_with("關鍵字")
+
+-   contains("關鍵字")
+
+示範：找出名字有案件的欄位
+
+```{r}
+data3.1<- data1%>%
+ select(contains("案件"))
+```
+
+```{r,,echo=FALSE}
+datatable(data3.1)
+```
+:::
+
+::: panel
+## 搭配evevrything挑整資料順序 {.panel-name}
+
+select可以挑整資料欄的順序
+
+而搭配everything()可以讓你單純改變欄位順序
+
+示範：將年度欄放在案件類型之後
+
+```{r}
+data3.2<- data1%>%
+ select(案件類型,年度,everything())
+```
+
+```{r,,echo=FALSE}
+datatable(data3.2)
+```
+:::
+:::
+
+## 使用mutate新增資料欄
+
+mutate能讓你新增欄位
+
+公式：mutate(你的資料,新欄位名 = 運算)
+
+範例:找出不同年度的剩餘案件數
+
+```{r}
+data4<- data1%>%
+  mutate(剩餘案件數=案件數量-結案數)%>%
+  select(年度,案件類型,剩餘案件數)
+```
+
+::: panelset
+::: panel
+## data2 {.panel-name}
+
+```{r warning=FALSE, echo=FALSE}
+datatable(data4)
+```
+:::
+
+::: panel
+## 圖表 {.panel-name}
+
+```{r, code_folding=TRUE}
+ggplot(data4,aes(年度,剩餘案件數,fill = 案件類型))+
+  geom_bar(width=1,stat = "identity")+
+  facet_wrap(~ 案件類型, ncol = 1)+
+  labs(title= "2015年到2019年民事與刑事分別的剩餘案件數")+
+  scale_fill_manual( values = c("#004AAD","red"))+
+  theme_classic()+
+  theme(text=element_text(family="黑體-繁 中黑", size=15),legend.position = "none")
+```
+:::
+:::
+
+## 使用group_by+summarise做分組摘要
+
+summarise()本身的作用是產出濃縮的資料欄
+
+範例:data1中所有案件數的平均值
+
+```{r}
+summarise(data1,平均值= mean(案件數量))
+```
+
+但，這對我們整理或閱讀資料顯然沒有太大大的幫助
+
+但搭配group_by能讓我們一組別的方式做整理（所有的dplyr都能搭配group_by）
+
+範例:找出不同年度的案件總數
+
+```{r}
+data5<- data1%>%
+  group_by(年度)%>%
+  summarise(案件總數 = mean(案件數量)*2)
+```
+
+::: panelset
+::: panel
+## data2 {.panel-name}
+
+```{r warning=FALSE, echo=FALSE}
+datatable(data5)
+```
+:::
+
+::: panel
+## 圖表 {.panel-name}
+
+```{r, code_folding=TRUE}
+ggplot(data5,aes(年度,案件總數))+
+  geom_line(linewidth=1, colour="#004AAD")+
+  labs(title= "2015年到2019年的案件總數")+
+  theme_classic()+
+  theme(text=element_text(family="黑體-繁 中黑", size=15),legend.position = "none")+
+  coord_cartesian(ylim=c(0,100))
+```
+:::
+:::
+
+## 使用pivot_wider和pivot_longer聚集和分散資料
+
+除了篩選，改變資料，tidyverse還可以幫助你的資料變得更整齊
+
+閱讀以下資料欄，如果我要你比較每年刑法與民法案件發師的次數，是非常不直覺的，
+
+
+```{r, echo=FALSE}
+data6<-data1%>%
+  select(年度,案件類型,案件數量)
+datatable(data6)
+```
+
+而這時候，pivot_wider分散資料就相當有用
+
+公式：pivot_wider(你的資料,values_from = 含有值的欄, names_from = 含有名字的欄)
+
+範例：
+
+```{r}
+data6.1<-
+  data6%>%
+  pivot_wider(names_from = "案件類型",values_from = "案件數量")
+datatable(data6.1)
+```
+
+既然可以用wider來分散來讓資料更好閱讀，當然也可以用longer來聚焦幫助分析
+
+範例：
+
+```{r}
+data6.2<-
+  data6.1%>%
+  pivot_longer(c("刑事","民事"),names_to = "案件類型", values_to = "案件數量")
+datatable(data6.2)
+```
+
+## 讓arrange幫助你排序資料
+<center>注意看，這兩個表格有些不同</center>
+<br></br>
+
+::: {style="display: flex;"}
+
+::: {style="flex: 5;"}
+
+
+```{r  echo=FALSE,fig.align = 'center'}
+data6
+```
+:::
+
+::: {style="flex: 5;"}
+
+
+```{r  echo = FALSE,fig.align = 'right'}
+data6.4<- as.data.frame(data6.2)
+data6.4
+```
+:::
+:::
+
+jill

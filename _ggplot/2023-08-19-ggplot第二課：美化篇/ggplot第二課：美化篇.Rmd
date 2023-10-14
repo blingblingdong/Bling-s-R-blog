@@ -1,0 +1,15 @@
+---
+title: "ggplot第二課：美化篇"
+author: "董宸賓"
+date: "2023-08-19"
+description: |
+  這篇文章告訴大家如何製作圖表
+output:
+  distill::distill_article: 
+   toc: true
+   toc_depth: 1
+   toc_float: true
+   self_contained: false
+---
+
+

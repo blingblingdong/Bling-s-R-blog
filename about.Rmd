@@ -1,9 +1,81 @@
 ---
-title: "About this blog"
-description: |
-  Some additional details about the blog
+title: "董宸賓"
+image: "寶貝拉的圖.jpg"
+links:
+  - label: YouTube
+    url: "https://www.youtube.com/channel/UCdrnYc1UjNz4_zjr8G7XFfA"
+  - label: Instagram
+    url: "https://www.instagram.com/bling_bling_dong/"
+  - label: GitHub
+    url: "https://github.com/blingblingdong"
+  - label: Email
+    url: "mailto:whoareyouman0.4@gmail.com"
+output:
+  postcards::trestles:
+   pandoc_args: "--lua-filter=color-text.lua"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+```{cat, engine.opts = list(file = "color-text.lua")}
+Span = function(el)
+  color = el.attributes['color']
+  -- if no color attribute, return unchange
+  if color == nil then return el end
+  
+  -- transform to <span style="color: red;"></span>
+  if FORMAT:match 'html' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- use style attribute instead
+    el.attributes['style'] = 'color: ' .. color .. ';'
+    -- return full span element
+    return el
+  elseif FORMAT:match 'latex' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- encapsulate in latex code
+    table.insert(
+      el.content, 1,
+      pandoc.RawInline('latex', '\\textcolor{'..color..'}{')
+    )
+    table.insert(
+      el.content,
+      pandoc.RawInline('latex', '}')
+    )
+    -- returns only span content
+    return el.content
+  else
+    -- for other format return unchanged
+    return el
+  end
+end
 ```
+
+# 關於我
+
+### fff {style="color:white;"}
+
+## 學歷
+
+台北市中崙高中
+
+政治大學法律學系
+
+### fff {style="color:white;"}
+
+### fff {style="color:white;"}
+
+# 關於這個網站
+
+### fff {style="color:white;"}
+
+## 簡述
+
+此網站主要作為我的學習日誌，分享我的所學與作品集。
+
+網站是由distill與R語言建構。
+
+內容是有關R語言的基礎教學，輔以一些法律常識。
+
+就像你看到的，我只是「愛好者」。
+
+如看到錯誤或不滿之處，盡情指教，我會回覆的！

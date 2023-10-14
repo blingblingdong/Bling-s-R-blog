@@ -1,0 +1,125 @@
+---
+title: "ggplot第一課：基礎篇"
+author: "董宸賓"
+date: "2023-08-19"
+description: |
+  這篇文章告訴大家如何製作圖表
+output:
+  distill::distill_article: 
+   toc: true
+   toc_depth: 2
+   toc_float: true
+   self_contained: false
+   pandoc_args: "--lua-filter=color-text.lua"
+---
+
+```{cat, engine.opts = list(file = "color-text.lua")}
+Span = function(el)
+  color = el.attributes['color']
+  -- if no color attribute, return unchange
+  if color == nil then return el end
+  
+  -- transform to <span style="color: red;"></span>
+  if FORMAT:match 'html' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- use style attribute instead
+    el.attributes['style'] = 'color: ' .. color .. ';'
+    -- return full span element
+    return el
+  elseif FORMAT:match 'latex' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- encapsulate in latex code
+    table.insert(
+      el.content, 1,
+      pandoc.RawInline('latex', '\\textcolor{'..color..'}{')
+    )
+    table.insert(
+      el.content,
+      pandoc.RawInline('latex', '}')
+    )
+    -- returns only span content
+    return el.content
+  else
+    -- for other format return unchanged
+    return el
+  end
+end
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(DT)
+```
+
+## 先載入tidyverse
+
+`install.packages("tidyverse")`
+
+`library(tidyverse)`
+
+## 再入一組數據
+
+```{r warning=FALSE}
+表格1 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTpPg1erFUhXC6sKzUajLFeeBrdcPrugTyTWj8ly1tS4KS3h9yN31i4sq2NoGnHQ4_1M3rtbu1fo8XK/pub?gid=0&single=true&output=csv")
+view(表格1)
+```
+
+## 讓我們先觀察這組數據
+
+```{r}
+datatable(表格1)
+```
+
+## 建立一個基礎的圖表
+
+```{r}
+#data=你的數據
+#geom_point=圖表類型
+#設定兩軸aes(x=X,y=Y)
+ggplot(data = 表格1) + 
+  geom_point(mapping = aes(x = 年度, y = 案件數量))+
+  theme(text=element_text(family="黑體-繁 中黑"))
+```
+
+## 增加變相
+
+```{r}
+ggplot(data = 表格1) + 
+  geom_point(mapping = aes(x = 年度, y = 案件數量,color = 案件類型))+
+  theme(text=element_text(family="黑體-繁 中黑"))
+```
+
+## 疊圖
+```{r}
+ggplot(data = 表格1) + 
+  geom_point(mapping = aes(x = 年度, y = 案件數量,color = 案件類型))+
+  geom_line(mapping = aes(x = 年度, y = 案件數量,color = 案件類型))+
+  theme(text=element_text(family="黑體-繁 中黑"))
+```
+
+## 簡化疊圖
+```{r}
+ggplot(data = 表格1,mapping = aes(x = 年度, y = 案件數量,color = 案件類型)) + 
+  geom_point()+
+  geom_line()+
+  theme(text=element_text(family="黑體-繁 中黑"))
+```
+
+
+```{r}
+ggplot(data = 表格1,mapping = aes(x = 年度, y = 案件數量,fill=案件類型,label= 案件數量)) + 
+  geom_histogram(binwidth = 0.2, stat = "identity") +
+  scale_fill_manual( values = c("#004AAD","grey50"))+
+  facet_wrap(~案件類型, ncol = 1)+
+  theme(text=element_text(family="黑體-繁 中黑"))
+```
+
+
+
+
+
+
+
