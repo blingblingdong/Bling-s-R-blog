@@ -1,0 +1,186 @@
+---
+title: "Java Decision"
+author: "董宸賓"
+date: "2023-10-15"
+description: |
+  這是每個程式語言最重要的概念
+output:
+  distill::distill_article: 
+   toc: true
+   toc_depth: 4
+   toc_float: true
+   self_contained: false
+   pandoc_args: "--lua-filter=color-text.lua"
+---
+
+```{r panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{cat, engine.opts = list(file = "color-text.lua")}
+Span = function(el)
+  color = el.attributes['color']
+  -- if no color attribute, return unchange
+  if color == nil then return el end
+  
+  -- transform to <span style="color: red;"></span>
+  if FORMAT:match 'html' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- use style attribute instead
+    el.attributes['style'] = 'color: ' .. color .. ';'
+    -- return full span element
+    return el
+  elseif FORMAT:match 'latex' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- encapsulate in latex code
+    table.insert(
+      el.content, 1,
+      pandoc.RawInline('latex', '\\textcolor{'..color..'}{')
+    )
+    table.insert(
+      el.content,
+      pandoc.RawInline('latex', '}')
+    )
+    -- returns only span content
+    return el.content
+  else
+    -- for other format return unchanged
+    return el
+  end
+end
+```
+### if
+if是最基礎也最重要的語法
+
+::: panelset
+:::panel
+## 語法{.panel-name}
+```{}
+if (條件句) {
+敘述句
+} else if(條件句){
+敘述句
+}else{
+敘述句
+}
+
+```
+:::
+:::panel
+## 範例{.panel-name}
+```{java}
+public static void if1() {
+		int time = 22;
+		if (time == 18) {
+			System.out.println("去吃飯");
+		} else if (time == 12) {
+			System.out.println("去睡覺");
+		} else {
+			System.out.println("去讀書");
+		}
+	}
+
+```
+:::
+:::panel
+> 去讀書
+:::
+:::
+
+### Ternary Operator
+看起很困難，但其實很簡單的用法
+
+如果符合敘述句，該變數會等於前面，反之亦然
+
+最重要的是它的結果是一個**變數**
+
+::: panelset
+::: panel
+## 語法 {.panel-name}
+
+```{}
+型別 變數  =  (條件句)  ?  正確敘述句 : 錯誤敘述句;
+```
+:::
+
+::: panel
+## 範例 {.panel-name}
+
+```{java}
+public class Java_if {
+ public static void main(String[] argv) {
+   
+  int time = 22
+  String result = (time==18) ? "去吃飯":"去讀書";
+  System.out.println(result);
+ }
+  
+}
+```
+:::
+
+::: panel
+## 輸出結果{.panel-name}
+
+> 去讀書
+
+:::
+:::
+
+### switch
+比較適合用於單一的轉換
+
+優點是不像if一樣要跑很多分支
+
+::: panelset
+:::panel
+## 語法{.panel-name}
+```{}
+switch(描述句) {
+  case a:
+  敘述句;
+  break;
+  case b:
+  敘述句;
+  break;
+  default:
+  敘述句;
+  
+}
+
+```
+:::
+:::panel
+## 範例{.panel-name}
+```{java}
+public static void switch1() {
+		int time = 22;
+		String result = "";
+		switch (time) {
+		case 0:
+			result = "去睡覺";
+			break;
+		case 12:
+			result = "去吃飯";
+			break;
+		default:
+			result = "去讀書";
+		}
+		System.out.println(result);
+	}
+```
+:::
+:::panel
+## 結果{.panel-name}
+> 去讀書
+:::
+:::
+
+> switch的使用時機：當只要單一變數時
+Ex:選單
+
+
+
+

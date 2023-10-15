@@ -1,9 +1,9 @@
 ---
-title: "Java的變數Java-variable"
+title: "Java-variable"
 author: "董宸賓"
-date: "2023-08-19"
+date: "2023-8-19"
 description: |
-  這篇文章告訴大家如何製作圖表
+  Java是嚴格的程式語言，正確了解資料型別之特性，學會如何宣告，才能使用好這門語言。
 output:
   distill::distill_article: 
    toc: true
@@ -337,11 +337,11 @@ public class Java_in_9_13 {
 
 而equals()比較兩個String有沒有相同的內容
 
-```{java,code_folding=TRUE}
+```{java}
 
 public class Java_in_9_13 {
  public static void main(String[] argv) {
-*  String s1 ="Hello";
+   String s1 ="Hello";
    String s2 = new String("Hello");
    
    System.out.println(s1.equals(s2));

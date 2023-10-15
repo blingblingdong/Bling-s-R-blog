@@ -1,8 +1,9 @@
 ---
 title: "Java的運算"
 author: "董宸賓"
-date: "2023-08-19"
-description: |
+date: "2023-9-19"
+description: | 
+  Java的運算和其他語言相差無幾，但特別注意型別，尤其是在比較與限縮時。
   
 output:
   distill::distill_article: 
@@ -56,9 +57,11 @@ end
 
 分為四種類型
 
--   Arithmetic Operators:基礎的數學運算 ![](Arithmetic.png)
+### Arithmetic Operators:基礎的數學運算
 
-### %魔術運算的使用時機
+![](Arithmetic.png){.absolute top="100" left="75" width="900" height="\"600"}
+
+#### %魔術運算的使用時機
 
 1.用來檢測餘數是否為0
 
@@ -76,11 +79,15 @@ ex:7 % 2 = 2
 
 4.位置參照
 
--   Assignment Operators:即=，指派變數的值 ![](Assignment.png)
+### Assignment Operators:即=，指派變數的值
 
--   Logical Operators:包括and，or，not ![](Logical.png)
+![](Assignment.png){.absolute top="100" left="75" width="900" height="\"600"}
 
-###長程與短程
+### Logical Operators:包括and，or，not
+
+![](Logical.png){.absolute top="100" left="75" width="900" height="\"600"}
+
+#### 長程與短程
 
 &&和||為短程，&&左值不成立，右值不運算，||左值成立，右值不運算
 
@@ -113,7 +120,9 @@ public class Java_in_9_13 {
 
 2.減少多餘的運算
 
--   Comparison Operators:比較兩個變數 ![](Comparison.png){.absolute top="100" left="75" width="900" height="\"600"}
+### Comparison Operators:比較兩個變數   
+
+![](Comparison.png){.absolute top="100" left="75" width="900" height="\"600"}
 
 值得注意的是，要盡量避免浮點數(double)的比較
 
@@ -194,4 +203,4 @@ public class Lab2 {
 
 ## 關於運算的小tip
 
-### 運算和print分開做
+- 運算和print分開做
