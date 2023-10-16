@@ -1,0 +1,389 @@
+---
+title: "Java Loop"
+author: "董宸賓"
+date: "2023-10-15"
+description: |
+  Java的迴圈無慎特出，惟，if函數若無法使用得宜，恐未能將其使用得宜。
+output:
+  distill::distill_article: 
+   toc: true
+   toc_depth: 4
+   toc_float: true
+   self_contained: false
+   pandoc_args: "--lua-filter=color-text.lua"
+---
+
+```{r panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{cat, engine.opts = list(file = "color-text.lua")}
+Span = function(el)
+  color = el.attributes['color']
+  -- if no color attribute, return unchange
+  if color == nil then return el end
+  
+  -- transform to <span style="color: red;"></span>
+  if FORMAT:match 'html' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- use style attribute instead
+    el.attributes['style'] = 'color: ' .. color .. ';'
+    -- return full span element
+    return el
+  elseif FORMAT:match 'latex' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- encapsulate in latex code
+    table.insert(
+      el.content, 1,
+      pandoc.RawInline('latex', '\\textcolor{'..color..'}{')
+    )
+    table.insert(
+      el.content,
+      pandoc.RawInline('latex', '}')
+    )
+    -- returns only span content
+    return el.content
+  else
+    -- for other format return unchanged
+    return el
+  end
+end
+```
+
+## 寫迴圈的共通觀念
+
+1.先寫裡面，再寫外面
+
+2.有問題的通常是if
+
+3.什麼時候用for?什麼時候用while?
+
+當你不知道要跑幾圈時，用while
+
+當你知道你要跑幾缺的時候使用if
+
+
+## while
+
+::: panelset
+:::panel
+## 語法{.panel-name}
+```{}
+while (條件句) {
+敘述句
+}
+
+```
+:::
+:::panel
+## 範例{.panel-name}
+不要忘了我們是怎麼檢查輸入的
+
+```{java}
+import java.util.Scanner;
+
+public class sc {
+
+		Scanner sc = new Scanner(System.in);
+		System.out.printf("Please enter grades:");
+		while (!sc.hasNextInt()) { //檢查是否為整數
+			sc.next();//丟棄不對的
+			System.out.println("拜託告訴我");
+		}
+		int grade = sc.nextInt();
+		System.out.println("your grade is " + grade);
+		
+	}
+  }
+```
+:::
+:::panel
+## 結果{.panel-name}
+
+Please enter grades:不告訴你
+
+拜託告訴我
+
+No
+
+拜託告訴我
+
+100
+
+your grade is 100
+:::
+:::
+
+### 用反向邏輯來寫if
+誒你是不是搞錯了，這章是while餒，怎麼在講if
+
+就知道你忘了，如何寫好迴圈？
+
+學好**if**!
+
+回到正題，我們太習慣正向邏輯
+
+但過於複雜的程式使用正向邏輯寫會很亂
+
+並且難以閱讀
+
+::: panelset
+:::panel
+## 語法{.panel-name}
+
+邏輯就只是把不做的事放在前面，
+
+這樣不只能讓你好閱讀
+
+更不用塞堆堆東西在if裡
+
+```{}
+while (條件句) {
+   if(條件){
+   敘述句;
+   break;
+   }
+   敘述句
+}
+
+```
+:::
+:::panel
+## 反向邏輯範例{.panel-name}
+
+```{java}
+import java.util.Scanner;
+
+public class while1() {
+
+    Scanner sc = new Scanner(System.in);
+		System.out.printf("請輸入一個西元年(0以離開):");
+		while (true){
+		  int year = sc.nextInt();
+		  if(year == 0){
+		    System.out.println("結束");
+		    break;
+		  }
+		boolean a = false;
+		if(year % 4 == 0 &&year%100!=0||year%400==0){
+		  a =true;
+		}
+		
+		if (a){
+		  System.out.println("閏年");
+		}
+		else{
+		  System.out.println("平年");
+		}
+		}
+			
+		}
+			
+
+  }
+```
+:::
+:::panel
+## 正向邏輯範例{.panel-name}
+```{java}
+import java.util.Scanner;
+
+public class while1() {
+
+		Scanner sc = new Scanner(System.in);
+		System.out.printf("請輸入一個西元年(0以離開):");
+		while (true) {
+			int year = sc.nextInt();
+			if (year != 0) {
+				boolean a = false;
+				if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+					a = true;
+				}
+
+				if (a) {
+					System.out.println("閏年");
+				} else {
+					System.out.println("平年");
+				}
+
+			} else {
+				System.out.println("結束");
+				break;
+			}
+
+		}
+
+  }
+```
+
+:::
+:::
+
+### 搭配switch
+
+不囉唆直看範例
+
+```{java}
+public static void while2() {
+
+		Scanner sc = new Scanner(System.in);
+		String theather;
+		int popcorn;
+		boolean isPopcorn;
+
+		// 設定輸入
+		while (true) {
+			if (!sc.hasNextInt()) {
+				System.out.println("掰掰");
+				break;
+			}
+			popcorn = sc.nextInt();
+			theather = sc.next();
+
+			isPopcorn = (popcorn == 1) ? true : false;// 設定需不需要抱米
+			String decision = (isPopcorn == true) ? "go to the first floor and then " : "";
+			System.out.print(decision);
+
+			// 電影院在哪
+			switch (theather) {
+			case "A":
+				System.out.print("go to the second floor.");
+				break;
+			case "B":
+				System.out.print("go to the second floor.");
+				break;
+			case "C":
+				System.out.print("go to the fourth floor.");
+				break;
+			case "D":
+				System.out.print("go to the fourth floor.");
+				break;
+			case "E":
+				System.out.print("go to the fifth floor.");
+				break;
+			}
+
+		}
+		sc.close();
+}
+```
+
+
+### do while
+
+他與while唯一不同的是他會先執行一次，即使條件件不符合
+
+語法：
+```{java}
+do{
+  敘述句
+}while(條件句)
+```
+
+## for迴圈
+
+上開提及當你知道具體需要跑幾缺時
+
+for迴圈就會是你最好的工具
+
+::: panelset
+:::panel
+## 語法{.panel-name}
+
+```{java}
+for (敘述句1;條件句;敘述句2) {
+迴圈內敘述句
+}
+
+```
+
+敘述句1必定執行的，且只執行一次
+
+滿足條件句執行迴圈內敘述句
+
+最後執行敘述句2
+
+你也可以寫成
+
+
+```{java}
+敘述句1
+for (;條件句;) {
+迴圈內敘述句
+敘述句2
+}
+
+```
+
+這裡看到，如果敘述句1、2皆為單純的敘述句，那何必使用for？
+
+因此通常是這樣使用for
+
+```{java}
+for(int i = 0; i < 要跑的圈數; i++){
+  迴圈內敘述句
+}
+
+```
+通常由0開始
+
+不過身為一個R語言使用者，你可能想從1開始
+
+條件句要改為**<=**。
+
+:::
+:::panel
+## 範例{.panel-name}
+非常經典的for迴圈
+
+因為我們知道要跑的確切次數，使用for迴圈完美
+
+```{java}
+public static void for1() {
+		int layer;
+		Scanner sc = new Scanner(System.in);
+		System.out.print("輸入欲列印的行數: ");
+		layer = sc.nextInt();
+		System.out.println(layer);
+
+		// 上半部的for迴圈，並使用print讓他們呈現於第一行
+		// 當初始值i不超過使用者輸入的layer時進入迴圈
+		for (int i = 1; i <= layer; i++) {
+
+			// 列印空白
+			for (int j = 1; j <= layer - i; j++) {
+				System.out.print(" ");
+			}
+
+			// 列印基數個
+			for (int k = 1; k <= (2 * i) - 1; k++) {
+				System.out.print("*");
+			}
+
+			System.out.println();
+		}
+
+		// 下半部的for迴圈
+		for (int i = layer - 1; i >= 1; i--) {
+
+			for (int j = 1; j <= layer - i; j++) {
+				System.out.print(" ");
+			}
+
+			for (int k = 1; k <= 2 * i - 1; k++) {
+				System.out.print("*");
+			}
+
+			System.out.println();
+		}
+		sc.close();
+	}
+```
+:::
+
+:::
+
+
+

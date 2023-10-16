@@ -3,7 +3,7 @@ title: "Java Decision"
 author: "董宸賓"
 date: "2023-10-15"
 description: |
-  這是每個程式語言最重要的概念
+  這是每個程式語言最重要的概念，每個難關就是一個if，跟人生一樣，所以請好好練if
 output:
   distill::distill_article: 
    toc: true
@@ -52,7 +52,10 @@ Span = function(el)
 end
 ```
 ### if
+
 if是最基礎也最重要的語法
+
+也是最需要經驗磨練的
 
 ::: panelset
 :::panel

@@ -174,6 +174,10 @@ public class Java_in_9_13 {
 
 -   Math.random()找出在0\~1之間的隨機值
 
+-   Math.floor()無條件捨去，Math.ceil()無條件進位，Math.round()四捨五入
+
+
+
 ## 用scanner取得使用者輸入
 
 ```{java}

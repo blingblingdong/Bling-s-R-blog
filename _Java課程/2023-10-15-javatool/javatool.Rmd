@@ -144,17 +144,18 @@ printf加\\n才會自動換行
 
 宣告：`Scanner sc = new Scanner(System.in);`
 
-關閉：`sc.close`
+關閉：`sc.close();`
 
 
 ### 輸入的型別
 
 ![](s1.png)
+
 ### 檢查輸入的型別
 
-檢查：`sc.hasNextInt()`
+檢查：`sc.hasNextInt();`
 
-丟棄輸入：`sc.next()`
+丟棄輸入：`sc.next();`
 
 ### 示範
 
