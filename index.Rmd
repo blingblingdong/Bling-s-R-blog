@@ -1,40 +1,66 @@
 ---
-title: "Bling's R blog"
+title: "Welcom to Bling's R Blog"
+image: "寶貝拉的圖.jpg"
+links:
+  - label: YouTube
+    url: "https://www.youtube.com/channel/UCdrnYc1UjNz4_zjr8G7XFfA"
+  - label: Instagram
+    url: "https://www.instagram.com/bling_bling_dong/"
+  - label: GitHub
+    url: "https://github.com/blingblingdong"
+  - label: Email
+    url: "mailto:whoareyouman0.4@gmail.com"
+output:
+  postcards::trestles:
+   pandoc_args: "--lua-filter=color-text.lua"
 site: distill::distill_website
 ---
-```{css, echo=FALSE}
-.news {
-    background-color: antiquewhite;
-    color:white;
-    height:95vh;
-    background-image: url("images/banner.png");
-    background-repeat: no-repeat;
-    background-size:cover;
-    background-position: center;
-    display:flex;
-    flex-direction:column;
-    align-items: center;
-    justify-content: center;
-} 
-.news h2 {
-    font-size:60px;
-    margin-top:60px;
-} 
-.news p {
-    color:#FEF7E6;
-    font-size:18px;
-    margin:25px 0;
-}
-.news a {
-    color:white;
-    text-decoration: none;
-    border: 1px solid #ACACAC;
-    padding:10px 20px;
-    border-radius: 5px;
-}
+
+```{cat, engine.opts = list(file = "color-text.lua")}
+Span = function(el)
+  color = el.attributes['color']
+  -- if no color attribute, return unchange
+  if color == nil then return el end
+  
+  -- transform to <span style="color: red;"></span>
+  if FORMAT:match 'html' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- use style attribute instead
+    el.attributes['style'] = 'color: ' .. color .. ';'
+    -- return full span element
+    return el
+  elseif FORMAT:match 'latex' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- encapsulate in latex code
+    table.insert(
+      el.content, 1,
+      pandoc.RawInline('latex', '\\textcolor{'..color..'}{')
+    )
+    table.insert(
+      el.content,
+      pandoc.RawInline('latex', '}')
+    )
+    -- returns only span content
+    return el.content
+  else
+    -- for other format return unchanged
+    return el
+  end
+end
 ```
-<section class="news">
-    <h2>健康穀物麵包新鮮出爐！</h2>
-    <p>亞麻的細語、葵花的微風，每一口都是自然的敘事</p>
-    <p><a href="#">瞭解更多</a></p>
-    </section>
+
+
+## 關於這個網站
+
+
+此網站主要作為我的學習日誌，分享我的所學與作品集。
+
+網站是由distill與R語言建構。
+
+內容是有關R語言的基礎教學，輔以一些法律常識。
+
+就像你看到的，我只是「愛好者」。
+
+如看到錯誤或不滿之處，盡情指教，我會回覆的！
