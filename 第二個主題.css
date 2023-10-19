@@ -98,3 +98,24 @@ div{display: block: line-height: 2:}
    width: auto;
    margin-top: 8px;
 }
+
+#nextsteps {
+   background-color: red;
+}
+
+
+#lawr {
+  background-color: red;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  margin-right: 150px;
+  margin-left: 80px;
+}
+
+.thumbnail {
+    padding: 0px!important;
+    margin: 0px!important;
+    max-width: 10%!important;
+    height: auto!important;
+    vertical-align: text-top!important;
+}

@@ -1,0 +1,19 @@
+[
+  {
+    "path": "R語言-工具/2023-10-19-xaringan/",
+    "title": "xaringan初階",
+    "description": "這篇文章介紹如何使用xaringan",
+    "author": [
+      {
+        "name": "董宸賓",
+        "url": {}
+      }
+    ],
+    "date": "2023-09-23",
+    "categories": [],
+    "contents": "\n\nContents\n什麼是xaringan\n如何使用\n搭配R語言\n插入數學符號\nR圖形\nDT\n\nnatrue設定\n使用css\n快捷鍵\nSlide內設定\nclass\n移除預設投影片\n左右分割\n使用layout\n\n如何匯出成pdf\npanelset\n\n什麼是xaringan\n翻譯自火影忍者的寫輪眼，他來自remark.js\n，適用於R markdown。\n這篇文是參考：資料\n如何使用\n在你的開頭設置\n---\ntitle: \"xaringan教學\"\nauthor: \"董宸賓\"\ndate: \"2023年9月23日\"\noutput:\n  xaringan::moon_reader\n    nature:\n      autoplay: 30000\n      highlightStyle: github\n---\n搭配R語言\n插入數學符號\n用法是Latex語法加上美元符號，例如用$\\alpha+\\beta$生成\\(\\alpha+\\beta\\)，如果要單獨顯示在一個段落就用兩個美元符號\n$$\\bar{X}=\\frac{1}{n}\\sum_{i=1}^nX_i$$\n\\[\\bar{X}=\\frac{1}{n}\\sum_{i=1}^nX_i\\]\nR圖形\n\n\nggplot(data = mpg) + \n  geom_point(mapping = aes(x = displ, y = hwy)) +\n  geom_smooth(mapping = aes(x = displ, y = hwy))\n\n\n\nDT\n\n\nDT::datatable(\n  head(iris, 10),\n  fillContainer = FALSE, options = list(pageLength = 8)\n)\n\n\n\nnatrue設定\n使用autoplay，數字毫秒為單位\noutput:\n  xaringan::moon_reader:\n    nature:\n      autoplay: 30000\n使用countdown到數計時\noutput:\n  xaringan::moon_reader:\n    nature:\n       countdown: 60000\n使用highLines特別註記被{{}}包裹的代碼\noutput:\n  xaringan::moon_reader:\n    nature:\n      highlightLines: true\n使用css\nxaringan::moon_reader強大的原因就是它能插入各種css元件\n舉個例子，如果你要讓字體變成紅色：\n先創一個css文件，並在裡面插入\n.red {\n  color: #FF0000;\n}\n將css引入文件中\noutput:\n  xaringan::moon_reader:\n    css: [\"zh-CN.css\", \"extra.css\"]\n在你的xaringan中加入\n.red[紅色的字]\n快捷鍵\nk上一頁，j下一頁\n按下Return+數字到特定頁\nm反轉簡報，b使全黑\n按下f全螢幕，c將投影片放到螢幕，p到特殊模式\nSlide內設定\nclass\n例如我想讓投影片黑底白字\n在css裡加入\n.aaa{\n  background-color: black;\n  color: white;\n}\n在投影片加入\nclass: aaa\n移除預設投影片\n加入seal: false\n左右分割\n原作有預設，但我這邊使用沒有出現，所以我自行加入\n在css裡加入\n.pull-left {\n  float: left;\n  width: 47%;\n}\n\n.pull-right {\n  float: right;\n  width: 47%;\n}\n在投影片加入\n.pull-left[a]\n\n.pull-right[b]\n使用layout\n設定layout:true讓那頁投影片設定為背景\nlayout:false將其移除\n如何匯出成pdf\n1.在頁尾加入R指令\npagedown::chrome_print(\"投影片檔名.html\")\n2.在頁首ymal的地方加入(推薦)\nknit: pagedown::chrome_print\npanelset\n在你的簡報加入\n.panelset[\n.panel[.panel-name[panel1]\n內容1\n]\n.panel[.panel-name[panel2]\n內容2\n]\n]\n\n更甚之，你可以配合R chunk setting 設置分隔輸出\n.panelset[\n.panel[\n.panel-name[panel名字]\n{r panelset = TRUE, results = \"hold\"}\nprint(\"Oak is strong and also gives shade.\")\nprint(\"The lake sparkled in the red hot sun.\")\n]\n\n接下來，你亦可讓panel左移\n.panelset.sideways[\n.panel[\n.panel-name[panel1]\n內容1\n]\n.panel[.panel-name[panel2]\n內容2\n]\n]\n參考資料\n\n\n\n",
+    "preview": "R語言-工具/2023-10-19-xaringan/xaringan.png",
+    "last_modified": "2023-10-19T12:06:52+08:00",
+    "input_file": "xaringan.knit.md"
+  }
+]

@@ -1,0 +1,237 @@
+---
+title: "xaringan初階"
+author: "董宸賓"
+preview: "xaringan.png"
+date: "2023-09-23"
+description: |
+  這篇文章介紹如何使用xaringan
+output:
+  distill::distill_article: 
+   toc: true
+   toc_depth: 3
+   toc_float: true
+   page-layout: full
+   self_contained: false
+   highlightStyle: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(DT)
+library(renderthis)
+xaringanExtra::use_panelset()
+```
+
+
+
+
+## 什麼是xaringan
+
+翻譯自火影忍者的寫輪眼，他來自[remark.js](https://bookdown.org/yihui/rmarkdown/xaringan.html)
+，適用於R markdown。
+
+這篇文是參考：[資料](https://bookdown.org/yihui/rmarkdown/xaringan.html)
+
+## 如何使用
+
+在你的開頭設置
+```
+---
+title: "xaringan教學"
+author: "董宸賓"
+date: "2023年9月23日"
+output:
+  xaringan::moon_reader
+    nature:
+      autoplay: 30000
+      highlightStyle: github
+---
+```
+## 搭配R語言
+### 插入數學符號
+用法是[Latex](http://www.uinio.com/Math/LaTex/)語法加上美元符號，例如用` $\alpha+\beta$ `生成$\alpha+\beta$，如果要單獨顯示在一個段落就用兩個美元符號
+
+```
+$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
+```
+$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
+
+### R圖形
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+
+```
+
+### DT
+
+```{r}
+DT::datatable(
+  head(iris, 10),
+  fillContainer = FALSE, options = list(pageLength = 8)
+)
+```
+## natrue設定
+
+- 使用autoplay，數字毫秒為單位
+```
+output:
+  xaringan::moon_reader:
+    nature:
+      autoplay: 30000
+```
+- 使用countdown到數計時
+
+```
+output:
+  xaringan::moon_reader:
+    nature:
+       countdown: 60000
+```
+- 使用highLines特別註記被{{}}包裹的代碼
+```
+output:
+  xaringan::moon_reader:
+    nature:
+      highlightLines: true
+```
+
+
+## 使用css
+xaringan::moon_reader強大的原因就是它能插入各種css元件
+
+舉個例子，如果你要讓字體變成紅色：
+
+1. 先創一個css文件，並在裡面插入
+```
+.red {
+  color: #FF0000;
+}
+```
+2. 將css引入文件中
+```
+output:
+  xaringan::moon_reader:
+    css: ["zh-CN.css", "extra.css"]
+```
+3. 在你的xaringan中加入
+```
+.red[紅色的字]
+```
+## 快捷鍵
+
+- k上一頁，j下一頁
+
+- 按下Return+數字到特定頁
+
+- m反轉簡報，b使全黑
+
+- 按下f全螢幕，c將投影片放到螢幕，p到特殊模式
+
+## Slide內設定
+
+### class
+例如我想讓投影片黑底白字
+
+1. 在css裡加入
+```
+.aaa{
+  background-color: black;
+  color: white;
+}
+```
+
+2. 在投影片加入
+```
+class: aaa
+```
+### 移除預設投影片
+
+加入`seal: false`
+
+### 左右分割
+
+原作有預設，但我這邊使用沒有出現，所以我自行加入
+
+1. 在css裡加入
+```
+.pull-left {
+  float: left;
+  width: 47%;
+}
+
+.pull-right {
+  float: right;
+  width: 47%;
+}
+```
+
+2. 在投影片加入
+```
+.pull-left[a]
+
+.pull-right[b]
+```
+
+### 使用layout
+
+設定layout:true讓那頁投影片設定為背景
+
+layout:false將其移除
+
+
+## 如何匯出成pdf
+
+1.在頁尾加入R指令
+`pagedown::chrome_print("投影片檔名.html")`
+
+2.在頁首ymal的地方加入(推薦)
+knit: pagedown::chrome_print
+
+## panelset
+
+在你的簡報加入
+
+```
+.panelset[
+.panel[.panel-name[panel1]
+內容1
+]
+.panel[.panel-name[panel2]
+內容2
+]
+]
+
+```
+更甚之，你可以配合R chunk setting 設置分隔輸出
+
+```
+.panelset[
+.panel[
+.panel-name[panel名字]
+{r panelset = TRUE, results = "hold"}
+print("Oak is strong and also gives shade.")
+print("The lake sparkled in the red hot sun.")
+]
+
+```
+
+
+接下來，你亦可讓panel左移
+
+
+```
+.panelset.sideways[
+.panel[
+.panel-name[panel1]
+內容1
+]
+.panel[.panel-name[panel2]
+內容2
+]
+]
+```
+[參考資料](https://pkg.garrickadenbuie.com/xaringanExtra/panelset/?panelset3=the-code-for-the-panels-on-this-slide2)

@@ -20,4 +20,6 @@ navbar:
       href: tidyverse.html
     - text: "Java課程"
       href: Java課程.html
+    - text: "R語言-工具"
+      href: R語言-工具.html
 output: distill::distill_article

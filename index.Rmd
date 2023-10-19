@@ -1,5 +1,40 @@
 ---
 title: "Bling's R blog"
 site: distill::distill_website
-listing: posts
 ---
+```{css, echo=FALSE}
+.news {
+    background-color: antiquewhite;
+    color:white;
+    height:95vh;
+    background-image: url("images/banner.png");
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+} 
+.news h2 {
+    font-size:60px;
+    margin-top:60px;
+} 
+.news p {
+    color:#FEF7E6;
+    font-size:18px;
+    margin:25px 0;
+}
+.news a {
+    color:white;
+    text-decoration: none;
+    border: 1px solid #ACACAC;
+    padding:10px 20px;
+    border-radius: 5px;
+}
+```
+<section class="news">
+    <h2>健康穀物麵包新鮮出爐！</h2>
+    <p>亞麻的細語、葵花的微風，每一口都是自然的敘事</p>
+    <p><a href="#">瞭解更多</a></p>
+    </section>

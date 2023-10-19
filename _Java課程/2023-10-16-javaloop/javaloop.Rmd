@@ -52,6 +52,10 @@ Span = function(el)
 end
 ```
 
+::: {#lawr}
+aa
+:::
+
 ## 寫迴圈的共通觀念
 
 1.先寫裡面，再寫外面
@@ -64,21 +68,22 @@ end
 
 當你知道你要跑幾缺的時候使用if
 
-
 ## while
 
 ::: panelset
-:::panel
-## 語法{.panel-name}
-```{}
+::: panel
+## 語法 {.panel-name}
+
+```         
 while (條件句) {
 敘述句
 }
-
 ```
 :::
-:::panel
-## 範例{.panel-name}
+
+::: panel
+## 範例 {.panel-name}
+
 不要忘了我們是怎麼檢查輸入的
 
 ```{java}
@@ -99,8 +104,9 @@ public class sc {
   }
 ```
 :::
-:::panel
-## 結果{.panel-name}
+
+::: panel
+## 結果 {.panel-name}
 
 Please enter grades:不告訴你
 
@@ -117,6 +123,7 @@ your grade is 100
 :::
 
 ### 用反向邏輯來寫if
+
 誒你是不是搞錯了，這章是while餒，怎麼在講if
 
 就知道你忘了，如何寫好迴圈？
@@ -130,8 +137,8 @@ your grade is 100
 並且難以閱讀
 
 ::: panelset
-:::panel
-## 語法{.panel-name}
+::: panel
+## 語法 {.panel-name}
 
 邏輯就只是把不做的事放在前面，
 
@@ -139,7 +146,7 @@ your grade is 100
 
 更不用塞堆堆東西在if裡
 
-```{}
+```         
 while (條件句) {
    if(條件){
    敘述句;
@@ -147,11 +154,11 @@ while (條件句) {
    }
    敘述句
 }
-
 ```
 :::
-:::panel
-## 反向邏輯範例{.panel-name}
+
+::: panel
+## 反向邏輯範例 {.panel-name}
 
 ```{java}
 import java.util.Scanner;
@@ -185,8 +192,10 @@ public class while1() {
   }
 ```
 :::
-:::panel
-## 正向邏輯範例{.panel-name}
+
+::: panel
+## 正向邏輯範例 {.panel-name}
+
 ```{java}
 import java.util.Scanner;
 
@@ -217,7 +226,6 @@ public class while1() {
 
   }
 ```
-
 :::
 :::
 
@@ -270,12 +278,12 @@ public static void while2() {
 }
 ```
 
-
 ### do while
 
 他與while唯一不同的是他會先執行一次，即使條件件不符合
 
 語法：
+
 ```{java}
 do{
   敘述句
@@ -289,8 +297,8 @@ do{
 for迴圈就會是你最好的工具
 
 ::: panelset
-:::panel
-## 語法{.panel-name}
+::: panel
+## 語法 {.panel-name}
 
 ```{java}
 for (敘述句1;條件句;敘述句2) {
@@ -306,7 +314,6 @@ for (敘述句1;條件句;敘述句2) {
 最後執行敘述句2
 
 你也可以寫成
-
 
 ```{java}
 敘述句1
@@ -327,15 +334,17 @@ for(int i = 0; i < 要跑的圈數; i++){
 }
 
 ```
+
 通常由0開始
 
 不過身為一個R語言使用者，你可能想從1開始
 
-條件句要改為**<=**。
-
+條件句要改為**\<=**。
 :::
-:::panel
-## 範例{.panel-name}
+
+::: panel
+## 範例 {.panel-name}
+
 非常經典的for迴圈
 
 因為我們知道要跑的確切次數，使用for迴圈完美
@@ -382,8 +391,4 @@ public static void for1() {
 	}
 ```
 :::
-
 :::
-
-
-
