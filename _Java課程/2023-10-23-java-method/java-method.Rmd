@@ -1,0 +1,59 @@
+---
+title: "Java Decision"
+author: "董宸賓"
+date: "2023-10-15"
+description: |
+  這是每個程式語言最重要的概念，每個難關就是一個if，跟人生一樣，所以請好好練if
+output:
+  distill::distill_article: 
+   toc: true
+   toc_depth: 4
+   toc_float: true
+   self_contained: false
+   pandoc_args: "--lua-filter=color-text.lua"
+---
+
+```{r panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{cat, engine.opts = list(file = "color-text.lua")}
+Span = function(el)
+  color = el.attributes['color']
+  -- if no color attribute, return unchange
+  if color == nil then return el end
+  
+  -- transform to <span style="color: red;"></span>
+  if FORMAT:match 'html' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- use style attribute instead
+    el.attributes['style'] = 'color: ' .. color .. ';'
+    -- return full span element
+    return el
+  elseif FORMAT:match 'latex' then
+    -- remove color attributes
+    el.attributes['color'] = nil
+    -- encapsulate in latex code
+    table.insert(
+      el.content, 1,
+      pandoc.RawInline('latex', '\\textcolor{'..color..'}{')
+    )
+    table.insert(
+      el.content,
+      pandoc.RawInline('latex', '}')
+    )
+    -- returns only span content
+    return el.content
+  else
+    -- for other format return unchanged
+    return el
+  end
+end
+```
+
+```{bash echo=FALSE}
+javac aa.java
+java aa
+```
+

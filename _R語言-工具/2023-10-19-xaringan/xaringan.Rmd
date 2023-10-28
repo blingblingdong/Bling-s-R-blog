@@ -74,6 +74,8 @@ DT::datatable(
   fillContainer = FALSE, options = list(pageLength = 8)
 )
 ```
+
+
 ## natrue設定
 
 - 使用autoplay，數字毫秒為單位

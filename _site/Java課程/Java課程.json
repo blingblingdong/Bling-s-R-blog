@@ -51,6 +51,23 @@
     "input_file": {}
   },
   {
+    "path": "Java課程/2023-10-23-java-method/",
+    "title": "Java Decision",
+    "description": "這是每個程式語言最重要的概念，每個難關就是一個if，跟人生一樣，所以請好好練if",
+    "author": [
+      {
+        "name": "董宸賓",
+        "url": {}
+      }
+    ],
+    "date": "2023-10-15",
+    "categories": [],
+    "contents": "\n\n\n\n\n\n\n\nSam20\nHana30\n\n\n\n\n",
+    "preview": {},
+    "last_modified": "2023-10-23T17:10:49+08:00",
+    "input_file": {}
+  },
+  {
     "path": "Java課程/2023-10-14-javaoperater/",
     "title": "Java的運算",
     "description": "Java的運算和其他語言相差無幾，但特別注意型別，尤其是在比較與限縮時。",

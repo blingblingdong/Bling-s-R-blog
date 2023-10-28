@@ -5,7 +5,7 @@ library(distill)
 
 git config --global user.name "Jane Doe"
 
-git config --global user.name "blingblingdong"
+git config --global user.name ""
 git config --global user.email "whoareyouman0.4@gmail.com"
 git config --global --list
 
@@ -78,3 +78,8 @@ public class java_if {
 > 去讀書
 :::
 :::
+
+library(distill)
+
+
+create_post("Java method",collection ="Java課程")

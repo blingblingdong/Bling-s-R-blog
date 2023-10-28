@@ -1,5 +1,7 @@
 ---
 title: "Welcom to Bling's R Blog"
+apple-touch-icon: "dd.png"
+apple-touch-icon-size: 120
 image: "寶貝拉的圖.jpg"
 links:
   - label: YouTube
